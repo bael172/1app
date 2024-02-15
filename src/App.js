@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import {PropTypes} from "prop-types"
 
-function App() {
+class App extends React.Component{
+  render()
+{
+  //return React.createElement('h1',null,'Hello nephews') React.createElement('b',null,'Bold')
+  let person = this.props.txt
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Hello {person} and {this.props.cat}</h1>
     </div>
-  );
+  )
+}}
+App.propTypes = {
+  txt: React.PropTypes.string,
+  cat: React.PropTypes.number.isRequired
+}
+App.defaultProps = {
+  txt: "this is the default txt"
 }
 
-export default App;
+//const App = () =><h1>Hello nephews!</h1>
+
+export default App
