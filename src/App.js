@@ -10,7 +10,7 @@ class App extends React.Component{
     }
   }
   update(){
-    this.setState({txt:event.target.value})
+    this.setState({txt:e.target.value})
   }
   render()
 {
@@ -19,10 +19,9 @@ class App extends React.Component{
   return (
     <article>
       <div>
-      <input type="text" onChange={this.update.bind(this)}/>
-      <h2>{this.state.txt}</h2>
-
-    </div>
+        <input type="text" onChange={this.update.bind(this)}/>
+        <h2>{this.state.txt}</h2>
+      </div>
       <div>
         <button onclick="alert('Терпение')">Click me</button>
         <script>
