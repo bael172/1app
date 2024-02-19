@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from "prop-types"
 import './App.css'
 
+/*
 class App extends React.Component{
   constructor(){
     super()
@@ -54,5 +55,18 @@ App.defaultProps = {
       */
 
 //const App = () =><h1>Hello nephews!</h1>
-
-export default App
+function Pole_vvoda(){
+  return(
+    <>
+    <input>Введите Имя</input>
+    </>
+  )
+}
+export default function Title(){
+  return(
+    <>
+    <title>Курсы изучения английского языка</title>
+    <Pole_vvoda/>
+    </>
+  )
+}
