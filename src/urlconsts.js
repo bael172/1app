@@ -1,0 +1,6 @@
+export const Login_route = "/login"
+export const Reg_route = "/reg"
+export const Main_route = "/main"
+export const Passive_voice_route = "/lesson/passive_voice"
+export const Sequence_tense_route = "/lesson/sequence_of_tense"
+export const Profile_route ="/user/profile"

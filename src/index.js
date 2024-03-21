@@ -1,14 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import Title from './App';
-import reportWebVitals from './reportWebVitals';
-
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <Title/>
-  </React.StrictMode>
+import React, { createContext } from 'react'; 
+import ReactDOM from 'react-dom/client'; 
+import App from './App'; 
+import UserStore from './store/userStore'
+export const User = createContext(null) 
+ 
+const root = ReactDOM.createRoot(document.getElementById('root')); 
+root.render( 
+  <React.StrictMode> 
+  <User.Provider value = {{ 
+    user: new UserStore() 
+  }}> 
+    <App/> 
+  </User.Provider>,     
+  </React.StrictMode> 
 );
 
 
