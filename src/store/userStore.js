@@ -1,36 +1,34 @@
-import {makeAutoObservable, makeObservable, observable, computed, action, flow} from "mobx"
+import {MakeObservable, action, observable, computed} from "mobx"
 
 export default class UserStore{
+    user = {}
     constructor(){
-        this.isAuth = true
-        this.user = {}
-        
-        makeObservable (this,{
+        this.isAuth
+        MakeObservable(this,{
             user: observable,
-            setIsAuth: action,
-            setUser: action,
-            getisAuth: action,
-            getuser: action
-        })
-        
-       //makeAutoObservable()
+            setAuth: action,
+            addUser: action,
+            checkAuth: computed,
+            getUser: computed
+            }
+        )
     }
-    setIsAuth(bool){
-        this.isAuth = bool
+    setAuth(bool){
+        this.isAuth=bool
     }
-    setUser({user1}){
-        this.user=user1
+    addUser({user1}){
+        Object.assign(this.user,user1)
+        //or 
         /*
-        for(let key in this.user){
-            this.user[key]=user1[key]
+        for(let key in user1){
+            user[key]=user1[key]
         }
         */
-        //Object.assign(this.user,user1)
     }
-    getisAuth(){
+    checkAuth(){
         return this.isAuth
     }
-    getuser(){
+    getUser(){
         return this.user
     }
 }

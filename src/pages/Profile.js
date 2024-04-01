@@ -1,4 +1,4 @@
-function Profile(){
+const Profile = () =>{
 
 }
 export default Profile

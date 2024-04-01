@@ -1,40 +1,40 @@
 import React, {useContext, useState}  from "react";
+import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import {Card, Container, Form, Button, Col, Row} from 'react-bootstrap'
 
-import {Main_route, Login_route, Reg_route} from "../path-comp/url_consts";
-
-import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import {observer} from "mobx-react-lite";
-import {Context} from "../index"
+
+import {User} from "../index"
+import {Main_route, Login_route, Reg_route} from "../path-comp/url_consts";
 import {registration, login } from "../API/userAPI";
 
 
 const Reg = observer(() => {
     document.body.style.backgroundColor = "white"
     
-    const {user} = useContext(Context)
+    const {user} = useContext(User)
     const navigate =useNavigate()
     const location = useLocation()
-    const isReg = location.pathname === Reg_route
+    const isLogin = location.pathname === Login_route
     
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
-    const [password, setPassword] = useState('')
-    
-   const [id, setUser] = useState('')
+    const [passwd, setPassword] = useState('')
+    const [passwdCheck, setPasswordCheck] = useState('')
 
     const click = async () =>{
     try{
-        if (isReg){
-            const response = await registration(name,email, phone, password)
+        if (isLogin){
+            const response = await login(email,phone,passwd)
             console.log(response)
-            user.setUser(response)
-            user.setIsAuth(true)
         }
         else{  
-            alert("Укажите данные для регистрации")
+            const response = await registration(name,email, phone, passwd, passwdCheck)
+            console.log(response)
         }
+        user.setUser(response)
+        user.setIsAuth(true)
         navigate(Main_route)} 
     catch(e){
         alert(e)
@@ -50,9 +50,10 @@ const Reg = observer(() => {
             <Form className="d-flex flex-column">
                 <Form.Control
                 className="mt-3"
-                type="email"
+                type="text"
                 placeholder = "Введите имя"
-                value = {email}
+                value = {name}
+                size="lg"
                 onChange = { e => setName(e.target.value)}
                 />
                 <Form.Control
@@ -60,34 +61,51 @@ const Reg = observer(() => {
                 type="email"
                 placeholder = "Введите email"
                 value = {email}
+                size="lg"
                 onChange = { e => setEmail(e.target.value)}
                 />
                 <Form.Control
                 className="mt-3"
-                type="email"
+                type="tel"
                 placeholder = "Введите телефон"
-                value = {email}
+                value = {phone}
+                size="lg"
                 onChange = { e => setPhone(e.target.value)}
                 />
                  <Form.Control 
                  className="mt-3"
                  type="password"
-                 placeholder = "Введите пароль"
-                 value = {password}
+                 placeholder = "Придумайте пароль"
+                 value = {passwd}
+                 size="lg"
                 onChange = { e => setPassword(e.target.value)}
                  />
+                 <Form.Control 
+                 className="mt-3"
+                 type="password"
+                 placeholder = "Повторите введённый пароль"
+                 value = {passwdCheck}
+                 size="lg"
+                onChange = { e => setPasswordCheck(e.target.value)}
+                 />
+
                  <Row >
                     <Col className="d-flex justify-content-between mt-3 pl-3 pr-3">
-                {isReg? 
-                <div>  <NavLink to={Login_route}>Уже есть аккаунт? Войти</NavLink> </div>
-                :
-                <div> <NavLink to={Reg_route}> Регистрация </NavLink> </div>}
-                 <Button
-                 variant={"outline-success"}
-                        onClick={click}>
-                {isReg ? 'Зарегистрироваться' : 'Войти'} 
-                 </Button>
-                 </Col>
+                {isLogin? 
+                    <div>  <NavLink to={Main_route}>Регистрация</NavLink> </div>
+                    :
+                    <div> Есть аккаунт?
+                        <NavLink to={Login_route}
+                        variant={"outline-link"}>Войти</NavLink> </div>
+                }
+                        <Button
+                            style={{borderRadius:41, height:71, width:195}}
+                            variant={"outline-success"}
+                            size="lg"
+                            onClick={click}>
+                            {isLogin ? 'Войти' : 'Зарегистрироваться'} 
+                        </Button>
+                    </Col>
                  </Row>
                  
             </Form>
