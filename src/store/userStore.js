@@ -7,7 +7,7 @@ export default class UserStore{
         MakeObservable(this,{
             user: observable,
             setAuth: action,
-            addUser: action,
+            setUser: action,
             checkAuth: computed,
             getUser: computed
             }
@@ -16,7 +16,7 @@ export default class UserStore{
     setAuth(bool){
         this.isAuth=bool
     }
-    addUser({user1}){
+    setUser({user1}){
         Object.assign(this.user,user1)
         //or 
         /*
