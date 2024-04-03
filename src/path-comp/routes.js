@@ -5,12 +5,12 @@ import Profile_route from "./url_consts"
 import Passive_voice_route from "./url_consts"
 import Sequence_tense_route from "./url_consts"
 
-import Main from "./pages/Main"
-import Login from "./pages/Login"
-import Reg from "./pages/Reg"
-import Profile from "./pages/Profile"
-import Passive_voice from "./pages/Passive_voice"
-import Sequence_tense from "./pages/Sequence_tense"
+import Main from "../pages/Main"
+import Login from "../pages/Login"
+import Reg from "../pages/Reg"
+import Profile from "../pages/Profile"
+import Passive_voice from "../pages/Passive_voice"
+import Sequence_tense from "../pages/Sequence_tense"
 
 export const authRoutes = [
     {
