@@ -1,10 +1,10 @@
 import React, { createContext } from 'react'; 
-import ReactDOM from 'react-dom/client'; 
+import ReactDOM from 'react-dom'; 
 import App from './App'; 
 import UserStore from './store/userStore'
 export const User = createContext(null) 
  
-const root = ReactDOM.createRoot(document.getElementById('root')); 
+const root = ReactDOM.render(document.getElementById('root')); 
 root.render( 
   <React.StrictMode> 
   <User.Provider value = {{ 
@@ -12,7 +12,8 @@ root.render(
   }}> 
     <App/> 
   </User.Provider>,     
-  </React.StrictMode> 
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
 

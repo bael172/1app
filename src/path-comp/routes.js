@@ -1,9 +1,6 @@
-import Main_route from "./url_consts"
-import Login_route from "./url_consts"
-import Reg_route from "./url_consts"
-import Profile_route from "./url_consts"
-import Passive_voice_route from "./url_consts"
-import Sequence_tense_route from "./url_consts"
+import { Main_route, Login_route, Reg_route,
+     Profile_route, Passive_voice_route, 
+     Sequence_tense_route } from "./url_consts"
 
 import Main from "../pages/Main"
 import Login from "../pages/Login"

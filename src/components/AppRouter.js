@@ -2,14 +2,11 @@ import React, {useContext} from "react"
 import {Routes,Route,Navigate} from 'react-router-dom'
 import {publicRoutes, authRoutes, managerRoutes} from '../path-comp/routes'
 import {Login_route} from "../path-comp/url_consts"
-import Login_route from "../pages/Login"
-
-import {User} from "../index"
 
 import {User} from "../index"
 
 const AppRouter = () => {
-    User.checkAuth()
+    const {user} = useContext(User)
     return (
         <Routes>
             {isAuth && managerRoutes.map(

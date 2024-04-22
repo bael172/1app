@@ -6,8 +6,8 @@ import {observer} from "mobx-react-lite"
 
 import {User} from "../index"
 
-import {Login_route, Reg_route, Main_route} from "../path-comp/url-consts"
-import { Passive_voice_route, Sequence_tense_route } from '../path-comp/url_consts'
+import {Login_route,  Main_route, Profile_route, 
+    Passive_voice_route, Sequence_tense_route} from "../path-comp/url-consts"
 
 const NavBar = observer(()=>{
     const {user} = useContext(User)
@@ -47,3 +47,5 @@ const NavBar = observer(()=>{
         </Navbar>
     )
 })
+
+export default NavBar

@@ -1,11 +1,12 @@
-import {MakeObservable, action, observable, computed} from "mobx"
+import {makeObservable, action, observable, computed} from "mobx"
 
 export default class UserStore{
     user = {}
+    isAuth = false
     constructor(){
-        this.isAuth
-        MakeObservable(this,{
+        makeObservable(this,{
             user: observable,
+            isAuth : observable,
             setAuth: action,
             setUser: action,
             checkAuth: computed,
@@ -16,14 +17,14 @@ export default class UserStore{
     setAuth(bool){
         this.isAuth=bool
     }
-    setUser({user1}){
-        Object.assign(this.user,user1)
-        //or 
-        /*
-        for(let key in user1){
-            user[key]=user1[key]
+    setUser(user1){
+        if (user1 && typeof user1 === 'object') {
+            for (const key in user1) {
+                if (Object.prototype.hasOwnProperty.call(user1, key)) {
+                    this.user[key] = user1[key];
+                }
+            }
         }
-        */
     }
     getAuth(){
         return this.isAuth
