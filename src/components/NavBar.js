@@ -7,7 +7,7 @@ import {observer} from "mobx-react-lite"
 import {User} from "../index"
 
 import {Login_route,  Main_route, Profile_route, 
-    Passive_voice_route, Sequence_tense_route} from "../path-comp/url-consts"
+    Passive_voice_route, Sequence_tense_route} from "../path/url-consts"
 
 const NavBar = observer(()=>{
     const {user} = useContext(User)
@@ -21,25 +21,25 @@ const NavBar = observer(()=>{
                 <NavLink style={{color:'white'}} to={Main_route}></NavLink>
                     {user.getAuth()?
                     <Nav className='ml-auto' style={{color:'white', fontFamily:"Righteous", paddingRight:10000, letterSpacing: "20%"}}>
-                        <Button size='lg' variant='outline-link'><NavLink to={Login_route}></NavLink>
-                            <p class="text-white">Вход в аккаунт</p>
+                        <Button size='lg' variant='outline-link'>
+                            <p class="text-white">Статьи</p>
                         </Button>
                     </Nav>
                     :
                     <Nav className="ml-auto" style={{color:'white'}}>
-                        <Button variant={"outline-light"}><NavLink to={Profile_route}></NavLink>
-                            Профиль
+                        <Button variant={"outline-light"}><NavLink to={Course_route}></NavLink>
+                            <p class="text-white">Курсы</p>
                         </Button>
                     </Nav>
                     }
                     <Nav className="ml-auto" style={{color:'white'}}>
-                        <Button variant={"outline-light"}><NavLink to={Sequence_tense_route}></NavLink>
-                            Согласование времён
+                        <Button variant={"outline-light"}><NavLink to={Login_route}></NavLink>
+                            <p class="text-white">Войти</p>
                         </Button>
                     </Nav>
                     <Nav className="ml-auto" style={{color:'white'}}>
-                        <Button variant={"outline-light"}><NavLink to={Passive_voice_route}></NavLink>
-                            Активный и пассивный залог
+                        <Button variant={"outline-light"}><NavLink to={Zapis_na_course_route}></NavLink>
+                            <p class="text-white">Записаться на курс</p>
                         </Button>
                     </Nav>
 

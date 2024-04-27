@@ -5,7 +5,7 @@ import {Card, Container, Form, Button, Col, Row} from 'react-bootstrap'
 import {observer} from "mobx-react-lite";
 
 import {User} from "../index"
-import {Main_route, Login_route, Reg_route} from "../path-comp/url_consts";
+import {Main_route, Login_route, Reg_route} from "../path/url_consts";
 import {registration, login } from "../API/userAPI";
 
 

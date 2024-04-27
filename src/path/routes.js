@@ -1,11 +1,12 @@
-import { Main_route, Login_route, Reg_route,
-     Profile_route, Passive_voice_route, 
-     Sequence_tense_route } from "./url_consts"
+import {Main_route, Login_route, Reg_route, 
+    Profile_route, Course_route, Passive_voice_route, 
+    Sequence_tense_route} from "./urlconsts"
 
 import Main from "../pages/Main"
 import Login from "../pages/Login"
 import Reg from "../pages/Reg"
 import Profile from "../pages/Profile"
+import Course from "../pages/Course"
 import Passive_voice from "../pages/Passive_voice"
 import Sequence_tense from "../pages/Sequence_tense"
 
@@ -14,9 +15,6 @@ export const authRoutes = [
         path: Profile_route,
         Component: Profile
     },
-]
-export const managerRoutes = [
-    
 ]
 export const publicRoutes = [
     {
@@ -32,11 +30,15 @@ export const publicRoutes = [
         Component: Login
     },
     {
-        path: Passive_voice,
-        Component: Passive_voice_route
+        path: Course_route,
+        Component: Course
     },
     {
-        path: Sequence_tense,
-        Component: Sequence_tense_route
+        path: Passive_voice_route,
+        Component: Passive_voice
+    },
+    {
+        path: Sequence_tense_route,
+        Component: Sequence_tense
     },
 ]
