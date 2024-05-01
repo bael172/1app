@@ -4,8 +4,7 @@ import App from './App';
 import UserStore from './context/userContext'
 export const User = createContext(null) 
  
-const root = ReactDOM.render(document.getElementById('root')); 
-root.render( 
+ReactDOM.render(
   <React.StrictMode> 
   <User.Provider value = {{ 
     user: new UserStore() 

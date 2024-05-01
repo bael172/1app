@@ -5,7 +5,7 @@ import {Card, Container, Form, Button, Col} from "react-bootstrap"
 import {observer} from "mobx-react-lite"
 
 import {User} from "../index"
-import { Login_route, Reg_route, Main_route} from "../path/url_consts"
+import { Login_route, Reg_route, Main_route} from "../path/urlconsts"
 import { registration, login, check} from "../API/userAPI"
 
 const Login = observer(() => {
@@ -24,13 +24,14 @@ const Login = observer(() => {
                 const response = await login(email,phone,passwd)
                 console.log(response)
                 user.setUser(response)
-                user.setIsAuth(true)
+                user.setAuth(true)
             }
             else{
                 const response = await registration(email,phone,passwd)
                 console.log(response)
+                user.setUser(response)
+                user.setAuth(true)
             }
-            //userStore.js
             navigate(Main_route)
         }
         catch(e){

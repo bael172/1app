@@ -2,15 +2,22 @@ import {makeObservable, action, observable, computed} from "mobx"
 
 export default class UserStore{
     user = {}
+    avatar = {}
     isAuth = false
     constructor(){
         makeObservable(this,{
             user: observable,
             isAuth : observable,
+            avatar: observable,
+
             setAuth: action,
             setUser: action,
-            checkAuth: computed,
-            getUser: computed
+
+            getAuth: action,
+            getUser: action,
+
+            setAvatar: action,
+            getAvatar: action
             }
         )
     }
@@ -31,5 +38,11 @@ export default class UserStore{
     }
     getUser(){
         return this.user
+    }
+    setAvatar(avatar){
+        this.avatar = avatar
+    }
+    getAvatar(){
+        return this.avatar
     }
 }

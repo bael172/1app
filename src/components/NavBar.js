@@ -7,7 +7,8 @@ import {observer} from "mobx-react-lite"
 import {User} from "../index"
 
 import {Login_route,  Main_route, Profile_route, 
-    Passive_voice_route, Sequence_tense_route} from "../path/url-consts"
+    Course_route, Zapis_na_course_route,
+    Passive_voice_route, Sequence_tense_route} from "../path/urlconsts"
 
 const NavBar = observer(()=>{
     const {user} = useContext(User)

@@ -1,6 +1,6 @@
 import {Main_route, Login_route, Reg_route, 
     Profile_route, Course_route, Passive_voice_route, 
-    Sequence_tense_route} from "./urlconsts"
+    Sequence_tense_route, Zapis_na_course_route} from "./urlconsts"
 
 import Main from "../pages/Main"
 import Login from "../pages/Login"
@@ -9,6 +9,7 @@ import Profile from "../pages/Profile"
 import Course from "../pages/Course"
 import Passive_voice from "../pages/Passive_voice"
 import Sequence_tense from "../pages/Sequence_tense"
+import Zapis from "../pages/Zapis_na_course"
 
 export const authRoutes = [
     {
@@ -41,4 +42,8 @@ export const publicRoutes = [
         path: Sequence_tense_route,
         Component: Sequence_tense
     },
+    {
+        path: Zapis_na_course_route,
+        Component: Zapis
+    }
 ]
