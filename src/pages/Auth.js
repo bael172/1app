@@ -1,18 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Card, Container, Form, Button } from 'react-bootstrap'
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { Login_route, Reg_route, Main_route } from "../path/url_consts";
+import { Login_route, Reg_route, Main_route } from "../path/urlconsts";
 import { registration, login } from "../API/userAPI"
 import { observer } from "mobx-react-lite";
-import { Context } from "../index"
+import { User } from "../index"
 
 const Auth = observer(() => {
-    const { user } = useContext(Context);
+    const { user } = useContext(User);
     const navigate = useNavigate();
     const location = useLocation();
     const isLogin = location.pathname === Login_route;
 
-    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
@@ -20,21 +19,24 @@ const Auth = observer(() => {
     useEffect(() => {
         document.body.style.backgroundColor = "#F6F6F6";
         return () => {
-            document.body.style.backgroundColor = ""; // Возвращаем исходный стиль фона при размонтировании компонента
+            document.body.style.backgroundColor = "blue"; // Возвращаем исходный стиль фона при размонтировании компонента
         };
     }, []);
 
     const click = async () => {
         try {
-            let response;
-            if (isLogin) {
-                response = await login(email, phone, password);
-            } else {
-                response = await registration(name, email, phone, password);
+            let response = await login(email, phone, password);
+            if(response.status === 200) { //успешный вход
+                user.setUser(response.data)
+                user.setIsAuth(true)
             }
+            //добавить условия response.status
+            else{
+                throw new Error(response.data.message)
+            }
+
             console.log(response);
-            user.setUser(response.data); // Предполагается, что в ответе на запрос есть данные пользователя
-            user.setIsAuth(true);
+;
             navigate(Main_route);
         } catch (error) {
             alert(error.message);
@@ -46,14 +48,6 @@ const Auth = observer(() => {
             <Card style={{ width: 600 }} className="p-5 bg-dark">
                 <h2 className="m-auto" style={{ color: 'white' }}>{isLogin ? 'Авторизация' : 'Регистрация'}</h2>
                 <Form className="d-flex flex-column">
-                    <Form.Control
-                        style={{ borderRadius: 70, height: 71, border: "1px solid" }}
-                        className="mt-3"
-                        placeholder="Введите имя"
-                        type="text"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                    />
                     <Form.Control
                         style={{ borderRadius: 70, height: 71, border: "1px solid" }}
                         className="mt-3"

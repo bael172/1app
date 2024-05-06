@@ -3,7 +3,7 @@ import {Main_route, Login_route, Reg_route,
     Sequence_tense_route, Zapis_na_course_route} from "./urlconsts"
 
 import Main from "../pages/Main"
-import Login from "../pages/Login"
+import Login from "../pages/auth"
 import Reg from "../pages/Reg"
 import Profile from "../pages/Profile"
 import Course from "../pages/Course"
