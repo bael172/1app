@@ -1,0 +1,11 @@
+.custom-select-dropdown{
+    position: static;
+}
+.custom-select-dropdown .dropdown-down{
+    top: 0;
+    bottom:100%;
+}
+.translateX{
+    position:static;
+    /*transform: translateX(0px);*/
+}

@@ -1,6 +1,6 @@
 import React, {useContext, useState}  from "react";
 import { useLocation, NavLink, useNavigate } from "react-router-dom";
-import {Card, Container, Form, Button, Col, Row} from 'react-bootstrap'
+import {Card, Container, Form, Button, Col, Row, FloatingLabel, Dropdown, SplitButton} from 'react-bootstrap'
 
 import {observer} from "mobx-react-lite";
 
@@ -10,7 +10,7 @@ import {registration, login } from "../API/userAPI";
 
 
 const Reg = observer(() => {
-    document.body.style.backgroundColor = "white"
+    document.body.style.backgroundColor = "#F0FFFF"
     
     const {user} = useContext(User)
     const navigate =useNavigate()
@@ -47,50 +47,61 @@ const Reg = observer(() => {
         <Container
         className = 'd-flex justify-content-center align-items-center '
         style = {{height: window.innerHeight - 54}}>
-        <Card style={{width: 600}} className="p-5 bg-dark">
-            <h2 className="m-auto" style={{color:'white'}}>{isLogin ? 'Авторизация' : 'Регистрация'}</h2>
-            <Form className="d-flex flex-column">
-                <Form.Control
-                className="mt-3"
-                type="text"
-                placeholder = "Введите имя"
-                value = {name}
-                size="lg"
-                onChange = { e => setName(e.target.value)}
-                />
-                <Form.Control
-                className="mt-3"
-                type="email"
-                placeholder = "Введите email"
-                value = {email}
-                size="lg"
-                onChange = { e => setEmail(e.target.value)}
-                />
-                <Form.Control
-                className="mt-3"
-                type="tel"
-                placeholder = "Введите телефон"
-                value = {phone}
-                size="lg"
-                onChange = { e => setPhone(e.target.value)}
-                />
-                 <Form.Control 
-                 className="mt-3"
-                 type="password"
-                 placeholder = "Придумайте пароль"
-                 value = {passwd}
-                 size="lg"
-                onChange = { e => setPassword(e.target.value)}
-                 />
-                 <Form.Control 
-                 className="mt-3"
-                 type="password"
-                 placeholder = "Повторите введённый пароль"
-                 value = {passwdCheck}
-                 size="lg"
-                onChange = { e => setPasswordCheck(e.target.value)}
-                 />
 
+        <Card style={{width: 600, backgroundColor:"#D9D9D9", height:window.innerHeight-250}} 
+            className="d-flex flex-column justify-content-center p-5">
+
+            <h2 className="my-3" style={{color:'black', display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+            {isLogin ? 'Авторизация' : 'Регистрация'}</h2>
+
+            <Form className="d-block">
+                <FloatingLabel label="Имя" className="">
+                <Form.Control
+                    className="mb-3"
+                    placeholder="Введите имя"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                />
+                </FloatingLabel>
+                <FloatingLabel label="Email" className="">
+                    <Form.Control
+                    className="mb-3"
+                    type="email"
+                    placeholder = "Введите email"
+                    value = {email}
+                    onChange = { e => setEmail(e.target.value)}
+                    />
+                </FloatingLabel>
+                <FloatingLabel label="Моб.телефон" className="">
+                    <Form.Control
+                    className="mb-3"
+                    type="tel"
+                    placeholder = "Введите телефон"
+                    value = {phone}
+                    onChange = { e => setPhone(e.target.value)}
+                    />
+                </FloatingLabel>
+                <FloatingLabel label="Пароль" className="">
+                    <Form.Control 
+                    className="mb-3"
+                    type="password"
+                    placeholder = "Придумайте пароль"
+                    value = {passwd}
+                    onChange = { e => setPassword(e.target.value)}
+                    />
+                </FloatingLabel>
+                <FloatingLabel label="Повторите пароль" className="">
+                    <Form.Control 
+                    className="mt-3"
+                    type="password"
+                    placeholder = "Повторите введённый пароль"
+                    value = {passwdCheck}
+                    size="lg"
+                    onChange = { e => setPasswordCheck(e.target.value)}
+                    />
+                </FloatingLabel>
                  <Row >
                     <Col className="d-flex justify-content-between mt-3 pl-3 pr-3">
                 {isLogin? 
