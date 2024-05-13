@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import { Card, Container, Form, FloatingLabel, InputGroup, SplitButton, Button, Col, Row, Dropdown } from 'react-bootstrap'
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { Login_route, Reg_route, Main_route } from "../path/urlconsts";
-import { Login_route, Reg_route, Main_route } from "../path/urlconsts";
 import { registration, login } from "../API/userAPI"
 import { observer } from "mobx-react-lite";
 import { User } from "../index"
@@ -87,8 +86,11 @@ const Auth = observer(() => {
             if(response.status === 401){
                 alert("Введите эл.почту/телефон и пароль")
             }
-            if(response.status === 202){
-                alert("")
+            if(response.status === 402){
+              alert("")
+            }
+            if(response.status === 403){
+              alert("")
             }
             //добавить условия response.status
             else{
@@ -114,7 +116,7 @@ const Auth = observer(() => {
         <Card
           style={{
             width: 600,
-            height: window.innerHeight - 350,
+            height: window.innerHeight - 550,
             backgroundColor: "#D9D9D9",
           }}
           className=" px-5 py-4"
