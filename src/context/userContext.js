@@ -33,9 +33,6 @@ export default class UserStore{
             }
         }
     }
-    setUser(user1){
-        this.user=user1
-    }
     getAuth(){
         return this.isAuth
     }

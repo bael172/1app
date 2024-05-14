@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Card, Container, Form, FloatingLabel, InputGroup, SplitButton, Button, Col, Row, Dropdown } from 'react-bootstrap'
+import { Card, Container, Form, FloatingLabel, InputGroup, SplitButton, Button, Col, Row, Dropdown, FormLabel } from 'react-bootstrap'
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { Login_route, Reg_route, Main_route } from "../path/urlconsts";
 import { registration, login } from "../API/userAPI"
@@ -16,7 +16,7 @@ const Auth = observer(() => {
 
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
-    const [password, setPassword] = useState('');
+    const [passwd, setPassword] = useState('');
     const [phoneCode, setPhoneCode] = useState('+7') //телефонный код Россия по умолчанию
 
     const Country_number={
@@ -77,33 +77,33 @@ const Auth = observer(() => {
     }, []);
 
     const click = async () => {
-        try {
-            let response = await login(email, phone, password);
+        //try {
+            let response = await login(email, phone, passwd);
+            console.log(response)
             if(response.status === 200) { //успешный вход
                 user.setUser(response.data)
                 user.setIsAuth(true)
             }
             if(response.status === 401){
-                alert("Введите эл.почту/телефон и пароль")
+              alert("Введите эл.почту/телефон и пароль")
             }
             if(response.status === 402){
-              alert("")
+              alert("Введите пароль")
             }
             if(response.status === 403){
-              alert("")
+              alert("Введен неверный email/телефон или нет учётной записи")
+            }
+            if(response.status === 404){
+              alert("Указан неверный пароль")
             }
             //добавить условия response.status
             else{
                 throw new Error(response.data.message)
             }
-
-            console.log(response);
-;
-;
             navigate(Main_route);
-        } catch (error) {
-            alert(error.message);
-        }
+        //} catch (error) {
+            //alert(error.message);
+        //}
     };
 
     function quarter_screen(){ //функция сокращения изначального внешнего окна браузера до четверти от изначального
@@ -116,7 +116,7 @@ const Auth = observer(() => {
         <Card
           style={{
             width: 600,
-            height: window.innerHeight - 550,
+            height: "25em",
             backgroundColor: "#D9D9D9",
           }}
           className=" px-5 py-4"
@@ -136,7 +136,6 @@ const Auth = observer(() => {
                 required
               />
             </FloatingLabel>
-
             <InputGroup className="mb-3">
               <Form.Select className=""  onChange={handleCountryChange}>
                 <option value="RU">Россия:&#x1F1F7;&#x1F1FA;</option>
@@ -196,7 +195,7 @@ const Auth = observer(() => {
                 className="mb-3"
                 placeholder="Введите пароль"
                 type="password"
-                value={password}
+                value={passwd}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
