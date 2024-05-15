@@ -8,10 +8,11 @@ import { User } from "../index"
 
 import "./Auth.css"
 
-require('dotenv').config()
-const jwt = require('jsonwebtoken')
+import env from "react-dotenv"
 
 const Auth = observer(() => {
+    document.body.style.backgroundColor = "#F0FFFF"; 
+
     const { user } = useContext(User);
     const navigate = useNavigate();
     const location = useLocation();
@@ -72,21 +73,14 @@ const Auth = observer(() => {
       setPhoneCode(number)
     }
 
-    useEffect(() => {
-        document.body.style.backgroundColor = "#F0FFFF";
-        return () => {
-            document.body.style.backgroundColor = "F0FFFF"; // Возвращаем исходный стиль фона при размонтировании компонента
-        };
-    }, []);
-
     const click = async () => {
         try {
             let response = await login(email, phone, passwd);
             console.log(response)
-            if(response.status === 200) { //успешный вход
-              let zapis = jwt.verify(response.data,process.env.SECRET_KEY)
-              user.setUser(zapis)
+            if(response.status === 200 && setValidated === true) { //успешный вход
+              user.setUser(response.data)
               user.setAuth(true)
+              navigate(Main_route);
             }
             if(response.status === 401){
               alert("Введите эл.почту/телефон и пароль")
@@ -100,15 +94,35 @@ const Auth = observer(() => {
             if(response.status === 404){
               alert("Указан неверный пароль")
             }
-            //добавить условия response.status
             else{
                 throw new Error(response.data.message)
             }
-            navigate(Main_route);
+
         } catch (error) {
             alert(error);
         }
     };
+
+    const [showError, setshowError] = useState(false)
+    const [validated, setValidated] = useState(false)
+    const handleSubmit = (event) =>{
+      
+        //currentTarget элемент к которому прикреплён обработчик событий
+        //target элемент на котором произошло событие (обычно кнопка)
+        const form = event.currentTarget 
+        const formElements = event.currentTarget.elements
+        const emailValue = formElements.email.value //email - id элемента
+        const phoneValue = formElements.phone.value //phone - id элемента
+        if(!emailValue && !phoneValue){
+          setshowError(true)
+        }
+        if(form.checkValidity()===false){
+            event.preventDefault()//предотвращение стандартной отправки формы
+            event.stopPropagation() //остановка распространения события на соседние обработчики событий
+        }
+        setshowError(false) // отключаем отображение ошибок
+        setValidated(true) // успешная валидация
+    }
 
     function quarter_screen(){ //функция сокращения изначального внешнего окна браузера до четверти от изначального
         window.resizeTo(window.screen.availHeight/2 , window.screen.availWidth/2)
@@ -128,18 +142,21 @@ const Auth = observer(() => {
           <h2 className="mb-3 text-dark" style={{ textAlign: "center" }}>
             {isLogin ? "Авторизация" : "Регистрация"}
           </h2>
-          <Form className="d-block">
 
+          <Form className="d-block" noValidate validated={validated} onSubmit={handleSubmit} >
             <FloatingLabel label="Email" className="">
               <Form.Control
+                id="email"
                 className="mb-3"
                 placeholder="Введите почту"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
               />
             </FloatingLabel>
+            {showError &&(
+              <Form.Control.Feedback type="invalid">Введите почту или телефон</Form.Control.Feedback>
+            )}
             <InputGroup className="mb-3">
               <Form.Select className=""  onChange={handleCountryChange}>
                 <option value="RU">Россия:&#x1F1F7;&#x1F1FA;</option>
@@ -180,8 +197,10 @@ const Auth = observer(() => {
                 <option value="CA">Канада: &#x1F1E8;&#x1F1E6;</option>
                 <option value="AU">Австралия: &#x1F1E6;&#x1F1FA;</option>
               </Form.Select>
+
               <InputGroup.Text className="py-3">{`${phoneCode}`}</InputGroup.Text>
                 <Form.Control
+                  id="phone"
                   className=""
                   placeholder="___-___-__-__"
                   pattern="\+?\d{1,3}?[-. ]?\(?\d{1,4}?\)?[-. ]?\d{1,4}[-. ]?\d{1,4}[-. ]?\d{1,4}"
@@ -189,23 +208,24 @@ const Auth = observer(() => {
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  required
                 />
-
+                {showError && (
+                  <Form.Control.Feedback type="invalid">Введите почту или телефон</Form.Control.Feedback>
+                )}
             </InputGroup>
 
             <FloatingLabel label="Пароль" className="">
               <Form.Control
-                className="mb-3"
                 placeholder="Введите пароль"
                 type="password"
                 value={passwd}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <Form.Control.Feedback type="invalid">Введите свой пароль</Form.Control.Feedback>
             </FloatingLabel>
 
-            <div className="d-grid" 
+            <div className="d-grid mt-3" 
             style={{gridTemplateColumns:'repeat(2,1fr)', gridColumnGap:"20em"}}>
               <Button
                 as={Col}

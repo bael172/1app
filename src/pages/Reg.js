@@ -8,8 +8,7 @@ import {User} from "../index"
 import {Main_route, Login_route, Reg_route} from "../path/urlconsts";
 import {registration, login } from "../API/userAPI";
 
-require('dotenv').config()
-const jwt = require('jsonwebtoken')
+import env from "react-dotenv"
 
 const Reg = observer(() => {
     document.body.style.backgroundColor = "#F0FFFF"
@@ -29,8 +28,7 @@ const Reg = observer(() => {
         try{
             const response = await login(email,phone,passwd)
             if (response.status === 200){
-                let zapis = jwt.verify(response.data,process.env.SECRET_KEY)
-                user.setUser(zapis)
+                user.setUser(response.data)
                 user.setAuth(true)
             }
             if (response.status === 401){
@@ -45,7 +43,8 @@ const Reg = observer(() => {
             else{
                 throw new Error(response.data.message)
             }
-            navigate(Main_route)} 
+            navigate(Main_route)
+        } 
         catch(e){
             alert(e)
         }
@@ -101,15 +100,24 @@ const Reg = observer(() => {
       setPhoneCode(number)
     }
 
+    const [showError, setshowError] = useState(false)
     const [validated, setValidated] = useState(false)
     const handleSubmit = (event) =>{
-        const form = event.currentTarget
-        if(form.checkValidity()===false){
-            event.preventDefault()
-            event.stopPropagation()
-            form.closest("Card").style.height="40em"
+        //currentTarget элемент к которому прикреплён обработчик событий
+        //target элемент на котором произошло событие (обычно кнопка)
+        const form = event.currentTarget 
+        const formElements = event.currentTarget.elements
+        const emailValue = formElements.email.value //email - id элемента
+        const phoneValue = formElements.phone.value //phone - id элемента
+        if(!emailValue && !phoneValue){
+          setshowError(true)
         }
-        setValidated(true)
+        if(form.checkValidity()===false){
+            event.preventDefault()//предотвращение стандартной отправки формы
+            event.stopPropagation() //остановка распространения события на соседние обработчики событий
+        }
+        setshowError(false) // отключаем отображение ошибок
+        setValidated(true) // успешная валидация
     }
     return (
         <Container
@@ -142,6 +150,9 @@ const Reg = observer(() => {
                     value = {email}
                     onChange = { e => setEmail(e.target.value)}
                     />
+                    {showError && (
+                        <Form.Control.Feedback type="invalid">Введите email или телефон</Form.Control.Feedback>
+                    )}
                 </FloatingLabel>
             <InputGroup className="mb-3">
               <Form.Select className=""  onChange={handleCountryChange}>
@@ -192,9 +203,10 @@ const Reg = observer(() => {
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  required
                 />
-                <Form.Control.Feedback type="invalid">Введите телефон</Form.Control.Feedback>
+                {showError && (
+                    <Form.Control.Feedback type="invalid">Введите телефон</Form.Control.Feedback>
+                )}
             </InputGroup>
                 <FloatingLabel label="Придумайте пароль" className="">
                     <Form.Control 
