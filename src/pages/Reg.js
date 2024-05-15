@@ -31,7 +31,13 @@ const Reg = observer(() => {
                 user.setAuth(true)
             }
             if (response.status === 401){
-                
+                alert("Введите эл.почту, телефон и придумайте пароль")
+            }
+            if(response.status === 402){
+                alert("Введите пароль еще раз")
+            }
+            if(response.status === 403){
+                alert("Пароли не совпадают")
             }
             else{
                 throw new Error(response.data.message)
