@@ -8,6 +8,9 @@ import { User } from "../index"
 
 import "./Auth.css"
 
+require('dotenv').config()
+const jwt = require('jsonwebtoken')
+
 const Auth = observer(() => {
     const { user } = useContext(User);
     const navigate = useNavigate();
@@ -77,12 +80,13 @@ const Auth = observer(() => {
     }, []);
 
     const click = async () => {
-        //try {
+        try {
             let response = await login(email, phone, passwd);
             console.log(response)
             if(response.status === 200) { //успешный вход
-                user.setUser(response.data)
-                user.setIsAuth(true)
+              let zapis = jwt.verify(response.data,process.env.SECRET_KEY)
+              user.setUser(zapis)
+              user.setAuth(true)
             }
             if(response.status === 401){
               alert("Введите эл.почту/телефон и пароль")
@@ -101,9 +105,9 @@ const Auth = observer(() => {
                 throw new Error(response.data.message)
             }
             navigate(Main_route);
-        //} catch (error) {
-            //alert(error.message);
-        //}
+        } catch (error) {
+            alert(error);
+        }
     };
 
     function quarter_screen(){ //функция сокращения изначального внешнего окна браузера до четверти от изначального

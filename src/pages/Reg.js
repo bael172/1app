@@ -8,6 +8,8 @@ import {User} from "../index"
 import {Main_route, Login_route, Reg_route} from "../path/urlconsts";
 import {registration, login } from "../API/userAPI";
 
+require('dotenv').config()
+const jwt = require('jsonwebtoken')
 
 const Reg = observer(() => {
     document.body.style.backgroundColor = "#F0FFFF"
@@ -27,11 +29,18 @@ const Reg = observer(() => {
         try{
             const response = await login(email,phone,passwd)
             if (response.status === 200){
-                user.setUser(response)
+                let zapis = jwt.verify(response.data,process.env.SECRET_KEY)
+                user.setUser(zapis)
                 user.setAuth(true)
             }
             if (response.status === 401){
-                
+                alert("Введите эл.почту, телефон и придумайте пароль")
+            }
+            if(response.status === 402){
+                alert("Введите пароль еще раз")
+            }
+            if(response.status === 403){
+                alert("Пароли не совпадают")
             }
             else{
                 throw new Error(response.data.message)
@@ -98,18 +107,19 @@ const Reg = observer(() => {
         if(form.checkValidity()===false){
             event.preventDefault()
             event.stopPropagation()
+            form.closest("Card").style.height="40em"
         }
         setValidated(true)
     }
     return (
         <Container
-        className = 'd-flex justify-content-center align-items-center mt-5'
+        className = 'd-flex justify-content-center align-items-center'
         style = {{height: window.innerHeight - 54}}>
 
         <Card style={{width: 600, backgroundColor:"#D9D9D9", height:'35em'}} 
             className="py-3 px-5">
 
-            <h2 className="" style={{color:'black', display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+            <h2 className="mt-4" style={{color:'black', display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
             {isLogin ? 'Авторизация' : 'Регистрация'}</h2>
 
             <Form className="d-block" noValidate validated={validated} onSubmit={handleSubmit}>
@@ -122,6 +132,7 @@ const Reg = observer(() => {
                         onChange={(e) => setName(e.target.value)}
                         required
                     />
+                    <Form.Control.Feedback type="invalid">Это поле обязательно к заполнению</Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel label="Email" className="">
                     <Form.Control
@@ -183,6 +194,7 @@ const Reg = observer(() => {
                   onChange={(e) => setPhone(e.target.value)}
                   required
                 />
+                <Form.Control.Feedback type="invalid">Введите телефон</Form.Control.Feedback>
             </InputGroup>
                 <FloatingLabel label="Придумайте пароль" className="">
                     <Form.Control 
@@ -193,6 +205,7 @@ const Reg = observer(() => {
                     onChange = { e => setPassword(e.target.value)}
                     required
                     />
+                    <Form.Control.Feedback type="invalid">Это поле обязательно к заполнению</Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel label="Повторите пароль" className="">
                     <Form.Control 
@@ -204,7 +217,7 @@ const Reg = observer(() => {
                     onChange = { e => setPasswordCheck(e.target.value)}
                     required
                     />
-                    <Form.Control.Feedback type="invalid">Повторите пароль</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">Это поле обязательно к заполнению</Form.Control.Feedback>
                 </FloatingLabel>
                  <Row >
                     <Col className="d-flex justify-content-between mt-3 pl-3 pr-3">
