@@ -15,43 +15,68 @@ const InputField = () =>{
   return(
   <>
   <Row style={{backgroundColor:"#d9d9d9", borderRadius:"5px",
-   maxWidth:`${pageWidth}-800px`}} className="d-flex d-row p-3">
-    <Col xs={5} lg={5} >
+   width:`${pageWidth}-1200px`}} className="d-flex d-row p-3">
+    <Col xs={4} lg={3} md={4}>
       <Image src={zoomPersons} rounded width="150px" className=""/>
       <Button className="d-block mt-2"
       style={{backgroundColor:'yellow', color:"black", border:"none"}}
       >Оставить заявку</Button>
     </Col>
-
+    <Col xs={8} lg={9} md={8}>
+      <Row className="d-inline">
       {['Взрослым','Детям'].map((item,index)=>(
-      <div as={Col} className="d-inline-block"
+      <div as={Col} className="d-inline"
         key={`default-${item}`}>
-        <ToggleButton
-          size="sm"
-          variant="primary"
-          type="checkbox"
-          checked={checked}
-          value="1"
-          onChange={(e)=>setChecked(e.currentTarget.checked)}
-        >
-          {item}
-        </ToggleButton>
+          <ToggleButton
+            size="sm"
+            variant="primary"
+            type="checkbox"
+            checked={checked}
+            value="1"
+            onChange={(e)=>setChecked(e.currentTarget.checked)}
+          >
+            {item}
+          </ToggleButton>
         </div>
       ))}
-
-    </Row>
-      <InputGroup className="d-flex">
+      </Row>
+      <InputGroup className="d-grid mt-3" style={{gridRowGap:"6px"}}>
+        <Col>
         <Form.Control
+          className="d-block pr-5mr-5"
           placeholder="Имя"
+          type="text"
         ></Form.Control>
+        </Col>
+        <Col>
         <Form.Control
-          placeholder="+7(___)___-__-__"></Form.Control>
+          className="d-block"
+          placeholder="+7(___)___-__-__"
+          type="tel"
+          pattern="\+7([\d]{3})\d{2}-\d{2}"
+          >
+        </Form.Control>
+        </Col>
+        <Col>
         <Form.Control
-          placeholder="example@example.com"></Form.Control>
+          className="d-block"
+          placeholder="example@example.com"
+          type="email">
+        </Form.Control>
+        </Col>
+        <Form.Check
+        type="checkbox"
+        label="Даю согласие на обработку персональных данных"> 
+        </Form.Check>
       </InputGroup>
+      
+      </Col>
+    </Row>
+
     </>
   )
 }
+
 const Main = observer(() => { //функциональный компонент с методом mobx
     document.body.style.backgroundColor = "#F6F6F6"
     return(
