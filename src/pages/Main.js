@@ -12,6 +12,15 @@ import money from "../img/money.png"
 import time_manage from "../img/time_manage.png"
 import continue_learn from "../img/continue_learn.png"
 import pupil from "../img/pupil.png"
+import laptop from "../img/laptop.png"
+import comp_person from "../img/comp_person.png"
+
+import conversation from "../img/conversation.png"
+import eng_word from "../img/eng_word.png"
+import person_read from "../img/person_read.png"
+import online_meet from "../img/online_meet.png"
+import no_boring_lesson from "../img/no_boring_lesson.png"
+import grammar from "../img/grammar.png"
 
 const InputField = () =>{
   const [checked,setChecked]=useState(false)
@@ -145,23 +154,115 @@ const Main = observer(() => { //функциональный компонент 
               </Col>
             ))}
           </Row>
-          <h3 className="mt-4">Выберите свою цель - и мы гарантируем что вы достигнете результатов</h3>
-          <Card className="mt-3" style={{maxWidth:"50%"}}>
-            <Row>
-              <Col>
-                <Card.Body className="px-4 py-3">
-                  <Card.Title>Английский для детей</Card.Title>
-                  <Card.Text>Фундамент для успеха вашего ребёнка во взрослой жизни через увлекательное обучение</Card.Text>
+        <h3 className="mt-4">Выберите свою цель - и мы гарантируем что вы достигнете результатов</h3>
+          <Row>
+          <Col id="card1_card2" className="mt-3" style={{maxWidth:"60%"}} md={6}>
+            <Card style={{backgroundColor:"#E6E6E6", maxHeight:"15em"}}>
+              <Row id="card1">
+                <Col>
+                  <Card.Body className="px-4 py-3" >
+                    <Card.Title>Английский для детей</Card.Title>
+                    <Card.Text>Фундамент для успеха вашего ребёнка во взрослой жизни через увлекательное обучение</Card.Text>
+                  </Card.Body>
+                  <Button size="lg" className="mb-3"style={{backgroundColor:"white",color:"black", marginLeft:"20px"}}>Подробнее</Button>
+                </Col>
+                <Col>
+                  <Image style={{maxWidth:"100%", height:"50%"}} src={pupil}></Image>
+                </Col>
+              </Row>
+            </Card>
+            <Card className="mt-3" style={{backgroundColor:"#E6E6E6", maxHeight:"15em"}}>
+            <Row id="card2">
+                <Col>
+                  <Card.Body className="px-4 py-3" >
+                    <Card.Title>Разговорный английский</Card.Title>
+                    <Card.Text>
+                      Обеспечьте себя комфорт как в деловом, так и в 
+                      неформальном общении.Большое кол-во практики
+                    </Card.Text>
+                  </Card.Body>
+                  <Button size="lg" className="mb-3"style={{backgroundColor:"white",color:"black", marginLeft:"20px"}}>Подробнее</Button>
+                </Col>
+                <Col>
+                  <Image style={{maxWidth:"100%", maxHeight:"80%"}} src={comp_person}></Image>
+                </Col>
+              </Row>
+            </Card>
+          </Col>
+          <Col id="IT" className="mt-3" md={6}>
+            <Card style={{backgroundColor:"#242424", height:"31em"}}>
+              <Card.Body className="text-white" style={{textAlign:"center"}}>
+                <Card.Title>Английский для IT</Card.Title>
+                <Image src={laptop} style={{maxWidth:"18em"}}></Image>
+                <Card.Text><p>Углубленное изучение технического английского 
+                            для получения оффера от международных компаний</p>
+                            <p>Для дизайнеров, программистов, сисадминов,  
+                            компьютерных мастеров и других IT-специалистов</p>
+                </Card.Text>
+                <Button size="lg" className="mb-3"style={{backgroundColor:"white",color:"black", marginLeft:"20px"}}>Подробнее</Button>
+              </Card.Body>
+            </Card>
+
+          </Col>
+          </Row>
+        <h3 className="mt-3">Почему курсы это удобно?</h3>
+
+          <Row id="obshiy" className="mt-3">
+            <Col id="card_start" md={3}>
+              <Card id="start_card" className="" style={{maxWidth:"15em", maxHeight:"20em"}}>
+                <Card.Body>
+                  <Card.Img src={conversation}></Card.Img>
+                  <Card.Text>Активное обучение в разговорном стиле</Card.Text>
                 </Card.Body>
-                <Button className="" style={{backgroundColor:"white",color:"block"}}></Button>
+              </Card>
+            </Col>
+            <Col id="2ryada" md={6}>
+              <Row id="1ryad">
+                <Col id="eng_word">
+                  <Card style={{maxWidth:"15em", maxHeight:"20em"}}>
+                    <Card.Body>
+                      <Card.Img src={eng_word}></Card.Img>
+                      <Card.Text>Общение с носителями</Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col id="online_meet">
+                  <Card style={{maxWidth:"15em", maxHeight:"20em"}}>
+                    <Card.Body>
+                      <Card.Img src={online_meet}></Card.Img>
+                      <Card.Text>Уроки в формате видеовстреч</Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+              <Row id="2ryad">
+                <Col id="person_read">
+                <Card className="mt-3" style={{maxWidth:"15em", maxHeight:"20em"}}>
+                  <Card.Body>
+                    <Card.Img src={person_read}></Card.Img>
+                    <Card.Text>Индивидуальный подход к студентам</Card.Text>
+                  </Card.Body>
+                </Card>
+                </Col>
+                <Col className="mt-3" id="no_boring_lesson">
+                <Card style={{maxWidth:"15em", maxHeight:"20em"}}>
+                  <Card.Body>
+                    <Card.Img src={no_boring_lesson}></Card.Img>
+                    <Card.Text>Без скучных лекций</Card.Text>
+                  </Card.Body>
+                </Card>
               </Col>
-              <Col>
-              <Image style={{marginLeft:"5%", maxWidth:"50%", height:"50%"}} src={pupil}></Image>
-              </Col>
-            </Row>
-          </Card>
-
-
+              </Row>
+            </Col>
+            <Col id="card_end" md={3}>
+              <Card id="end_card" style={{maxWidth:"15em", maxHeight:"20em"}}>
+                <Card.Body>
+                  <Card.Img src={grammar}></Card.Img>
+                  <Card.Text>Анализ и разбор сложных грамматических конструкций</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
 
         </Container>
       </>
