@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import {Navbar, Nav, Container, Button, DropdownButton, DropdownItem, Image} from 'react-bootstrap'
-import {NavLink, useNavigate} from 'react-router-dom'
+import {NavLink, useNavigate, Link} from 'react-router-dom'
 
 import {observer} from "mobx-react-lite"
 
@@ -16,10 +16,6 @@ import user_logo from "../img/user.png"
 const NavBar = observer(()=>{
     const navigate = useNavigate()
     const {user} = useContext(User)
-    const logOut = () =>{
-        user.setUser({})
-        user.setIsAuth(false)
-    }
     return (
         <Navbar style={{position:'fixed', backgroundColor:"#A0ACD3"}} fixed='top'>
             <Container>
@@ -27,11 +23,11 @@ const NavBar = observer(()=>{
                     <Navbar.Brand href="../pages/Main.js" className="text-white" style={{fontStyle:"Nico Moji"}}>Eng Rizz</Navbar.Brand>
                     <Nav className="me-auto">
                     <DropdownButton title="Статьи" className="mx-2">
-                        <DropdownItem to={Passive_voice_route} /*href="../pages/Passive_voice.js"*/>Пассивный залог</DropdownItem>
-                        <DropdownItem to={Sequence_tense_route} /*href="../pages/Sequence_tense.js"*/>Согласование времён</DropdownItem>
+                        <DropdownItem as={Link} to={Passive_voice_route} /*href="../pages/Passive_voice.js"*/>Пассивный залог</DropdownItem>
+                        <DropdownItem as={Link} to={Sequence_tense_route} /*href="../pages/Sequence_tense.js"*/>Согласование времён</DropdownItem>
                     </DropdownButton>
                     <DropdownButton title="Курсы" className="">
-                        <DropdownItem>Все курсы</DropdownItem>
+                        <DropdownItem as={Link} to={Course_route}>Все курсы</DropdownItem>
                         <DropdownItem>По уровню сложности</DropdownItem>
                         <DropdownItem>По специализации</DropdownItem>
                         <DropdownItem>Курсы для детей</DropdownItem>
@@ -49,7 +45,6 @@ const NavBar = observer(()=>{
                             onClick={async()=>navigate(Zapis_na_course_route)}
                             >Записаться на курс</Button>
                     </Nav>
-
             </Container>
         </Navbar>
     )

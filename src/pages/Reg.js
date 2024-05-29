@@ -30,6 +30,7 @@ const Reg = observer(() => {
             if (response.status === 200){
                 user.setUser(response.data)
                 user.setAuth(true)
+                navigate(Main_route)
             }
             if (response.status === 401){
                 alert("Введите эл.почту, телефон и придумайте пароль")
@@ -43,7 +44,6 @@ const Reg = observer(() => {
             else{
                 throw new Error(response.data.message)
             }
-            navigate(Main_route)
         } 
         catch(e){
             alert(e)

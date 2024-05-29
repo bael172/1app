@@ -83,7 +83,6 @@ const InputField = () =>{
         label="Даю согласие на обработку персональных данных"> 
         </Form.Check>
       </InputGroup>
-      
       </Col>
     </Row>
 
@@ -103,14 +102,6 @@ const Main = observer(() => { //функциональный компонент 
       {text:text3,image:time_manage},
       {text:text4,image:continue_learn},
     ]
-    function select_img(index){
-      switch(index){
-        case '0': return {practice}
-        case '1': return {money}
-        case '2': return {time_manage}
-        case '3': return {continue_learn}
-      }
-    }
     return(
       <>
       <Card className="d-block" style={{marginTop:"6rem"}}>
@@ -157,7 +148,7 @@ const Main = observer(() => { //функциональный компонент 
         <h3 className="mt-4">Выберите свою цель - и мы гарантируем что вы достигнете результатов</h3>
           <Row>
           <Col id="card1_card2" className="mt-3" style={{maxWidth:"60%"}} md={6}>
-            <Card style={{backgroundColor:"#E6E6E6", maxHeight:"15em"}}>
+            <Card style={{backgroundColor:"#E6E6E6", maxHeight:"18em"}}>
               <Row id="card1">
                 <Col>
                   <Card.Body className="px-4 py-3" >
@@ -167,11 +158,11 @@ const Main = observer(() => { //функциональный компонент 
                   <Button size="lg" className="mb-3"style={{backgroundColor:"white",color:"black", marginLeft:"20px"}}>Подробнее</Button>
                 </Col>
                 <Col>
-                  <Image style={{maxWidth:"100%", height:"50%"}} src={pupil}></Image>
+                  <Image style={{maxWidth:"100%", maxHeight:"70%"}} src={pupil}></Image>
                 </Col>
               </Row>
             </Card>
-            <Card className="mt-3" style={{backgroundColor:"#E6E6E6", maxHeight:"15em"}}>
+            <Card className="mt-3" style={{backgroundColor:"#E6E6E6", maxHeight:"18em"}}>
             <Row id="card2">
                 <Col>
                   <Card.Body className="px-4 py-3" >
@@ -190,7 +181,7 @@ const Main = observer(() => { //функциональный компонент 
             </Card>
           </Col>
           <Col id="IT" className="mt-3" md={6}>
-            <Card style={{backgroundColor:"#242424", height:"31em"}}>
+            <Card style={{backgroundColor:"#242424", height:"36em"}}>
               <Card.Body className="text-white" style={{textAlign:"center"}}>
                 <Card.Title>Английский для IT</Card.Title>
                 <Image src={laptop} style={{maxWidth:"18em"}}></Image>
@@ -263,11 +254,11 @@ const Main = observer(() => { //функциональный компонент 
               </Card>
             </Col>
           </Row>
+          
 
         </Container>
       </>
     )
 })
-
 
 export default Main
